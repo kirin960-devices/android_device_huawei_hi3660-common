@@ -33,6 +33,7 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_PACKAGES += \
+    DeviceSettings \
     libion
 
 # HIDL
