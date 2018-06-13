@@ -81,7 +81,7 @@ PRODUCT_PACKAGES += \
 
 # Release tools
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/releasetools/releasetools.hi3660.sh:install/bin/releasetools.hi3660.sh
+    $(LOCAL_PATH)/releasetools/releasetools.hi3660.sh:$(TARGET_COPY_OUT_SYSTEM)/bin/releasetools.hi3660.sh
 
 # Remove unwanted packages
 PRODUCT_PACKAGES += \
