@@ -69,14 +69,16 @@ public class KeyHandler implements DeviceKeyHandler {
     protected static final int GESTURE_REQUEST = 1;
     private static final int GESTURE_WAKELOCK_DURATION = 2000;
 
-
     private static final String DOZE_INTENT = "com.android.systemui.doze.pulse";
 
     private static final int FP_GESTURE_SWIPE_LEFT = 106;
     private static final int FP_GESTURE_SWIPE_RIGHT = 105;
     private static final int FP_GESTURE_LONG_PRESS = 28;
-    
+
     private static final int FP_GESTURE_TAP = 174;
+
+    private static final int FP_DOWN = 117;
+    private static final int FP_UP = 113;
 
     private static final int[] sSupportedGestures = new int[]{
         FP_GESTURE_SWIPE_LEFT,
@@ -138,7 +140,7 @@ public class KeyHandler implements DeviceKeyHandler {
 
     @Override
     public boolean handleKeyEvent(KeyEvent event) {
-        if (event.getAction() != KeyEvent.ACTION_UP) {
+        if (event.getAction() != KeyEvent.ACTION_UP || event.getScanCode() == FP_UP || event.getScanCode() == FP_DOWN) {
             return false;
         }
         isFpgesture = false;
@@ -161,18 +163,23 @@ public class KeyHandler implements DeviceKeyHandler {
 
     @Override
     public boolean canHandleKeyEvent(KeyEvent event) {
+        if (event.getScanCode() == FP_UP || event.getScanCode() == FP_DOWN){
+            return false;
+        }
         return ArrayUtils.contains(sSupportedGestures, event.getScanCode());
     }
 
     @Override
     public boolean isDisabledKeyEvent(KeyEvent event) {
-
+	if (event.getScanCode() == FP_UP || event.getScanCode() == FP_DOWN) {
+	    return true;
+	}
         return false;
     }
 
     @Override
     public boolean isCameraLaunchEvent(KeyEvent event) {
-        if (event.getAction() != KeyEvent.ACTION_UP) {
+        if (event.getAction() != KeyEvent.ACTION_UP || event.getScanCode() == FP_UP || event.getScanCode() == FP_DOWN) {
             return false;
         }
         if (mFPcheck) {
@@ -190,7 +197,7 @@ public class KeyHandler implements DeviceKeyHandler {
 
     @Override
     public Intent isActivityLaunchEvent(KeyEvent event) {
-        if (event.getAction() != KeyEvent.ACTION_UP) {
+        if (event.getAction() != KeyEvent.ACTION_UP || event.getScanCode() == FP_UP || event.getScanCode() == FP_DOWN) {
             return null;
         }
         String value = getGestureValueForFPScanCode(event.getScanCode());
