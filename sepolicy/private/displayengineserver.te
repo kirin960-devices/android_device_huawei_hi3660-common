@@ -2,6 +2,7 @@ type displayengineserver_exec, exec_type, file_type;
 
 typeattribute displayengineserver coredomain;
 typeattribute displayengineserver halclientdomain;
+typeattribute displayengineserver system_executes_vendor_violators;
 
 # Allow for transition from init domain to displayengineserver
 init_daemon_domain(displayengineserver)
@@ -11,9 +12,6 @@ binder_use(displayengineserver)
 
 # Allow binder communication with surfaceflinger
 binder_call(displayengineserver, surfaceflinger)
-
-# Allow displayengineserver to read and execute vendor_file
-allow displayengineserver vendor_file:file rx_file_perms;
 
 # Allow displayengineserver to add and find display_engine_service
 allow displayengineserver display_engine_service:service_manager { add find };
