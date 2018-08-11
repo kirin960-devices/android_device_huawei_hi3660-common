@@ -11,6 +11,7 @@ type logcat_data_file, core_data_file_type, data_file_type, file_type;
 type logcat_device, dev_type;
 type make_ext4fs_blkdev, dev_type;
 type pmom_device, dev_type;
+type proc_bootdevice_name, fs_type, proc_type;
 type secure_storage_block_device, dev_type;
 type shex_block_device, dev_type;
 type splash2_block_device, dev_type;

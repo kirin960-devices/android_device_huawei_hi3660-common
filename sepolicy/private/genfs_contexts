@@ -1,0 +1,1 @@
+genfscon proc /bootdevice/name u:object_r:proc_bootdevice_name:s0
