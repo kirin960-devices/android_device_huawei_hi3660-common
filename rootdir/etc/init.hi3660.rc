@@ -4,6 +4,10 @@ on init
     mount none /system/etc/usb_audio_policy_configuration.xml /vendor/etc/usb_audio_policy_configuration.xml bind
     mount none /system/usr/keylayout/fingerprint.kl /vendor/usr/keylayout/fingerprint.kl bind
 
+on post-fs-data
+    mkdir /data/vendor_ce 0771 root root
+    mkdir /data/vendor_de 0771 root root
+
 on property:sys.boot_completed=1
     write /sys/class/hw_power/charger/direct_charger/iin_thermal 4500
     write /sys/class/hw_power/charger/charge_data/iin_thermal 2000
