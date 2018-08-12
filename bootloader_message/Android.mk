@@ -14,6 +14,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
+ifneq ($(BOARD_PROVIDES_BOOTLOADER_MESSAGE),)
 include $(CLEAR_VARS)
 LOCAL_CLANG := true
 LOCAL_SRC_FILES := bootloader_message.cpp
@@ -23,3 +24,4 @@ LOCAL_CFLAGS := -Werror
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/include
 LOCAL_EXPORT_C_INCLUDE_DIRS := $(LOCAL_PATH)/include
 include $(BUILD_STATIC_LIBRARY)
+endif
