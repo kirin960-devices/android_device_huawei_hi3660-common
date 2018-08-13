@@ -16,7 +16,7 @@
 def FullOTA_InstallEnd(info):
     info.script.AppendExtra('mount("ext4", "EMMC", "/dev/block/bootdevice/by-name/system", "/system");');
     info.script.AppendExtra('mount("ext4", "EMMC", "/dev/block/bootdevice/by-name/vendor", "/vendor");');
-    info.script.AppendExtra('assert(run_program("/sbin/sh", "/tmp/install/bin/releasetools.kirin970.sh") == 0);')
+    info.script.AppendExtra('assert(run_program("/sbin/sh", "/tmp/install/bin/releasetools.hi3660.sh") == 0);')
     info.script.AppendExtra('unmount("/system");');
     info.script.AppendExtra('unmount("/vendor");');
 

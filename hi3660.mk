@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-$(call inherit-product-if-exists, vendor/huawei/kirin970-common/kirin970-common-vendor.mk)
+$(call inherit-product-if-exists, vendor/huawei/hi3660-common/hi3660-common-vendor.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
@@ -27,9 +27,9 @@ PRODUCT_COPY_FILES += \
 
 # Device init scripts
 PRODUCT_PACKAGES += \
-    init.kirin970.rc \
-    init.kirin970.ab.rc \
-    init.kirin970.environ.rc
+    init.hi3660.rc \
+    init.hi3660.ab.rc \
+    init.hi3660.environ.rc
 
 # Display
 PRODUCT_PACKAGES += \
@@ -81,7 +81,7 @@ PRODUCT_PACKAGES += \
 
 # Release tools
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/releasetools/releasetools.kirin970.sh:install/bin/releasetools.kirin970.sh
+    $(LOCAL_PATH)/releasetools/releasetools.hi3660.sh:install/bin/releasetools.hi3660.sh
 
 # Remove unwanted packages
 PRODUCT_PACKAGES += \
