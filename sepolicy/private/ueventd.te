@@ -1,2 +1,2 @@
-# Allow ueventd to read /proc/bootdevice/name
-allow ueventd proc_bootdevice_name:file r_file_perms;
+# Allow ueventd to read /proc/bootdevice
+allow ueventd proc_bootdevice:file r_file_perms;
