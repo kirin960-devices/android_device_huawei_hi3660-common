@@ -24,5 +24,5 @@ LOCAL_REQUIRED_MODULES := telephony-ext
 LOCAL_SRC_FILES := $(call all-java-files-under,src)
 LOCAL_MODULE_TAGS := optional
 LOCAL_DEX_PREOPT := false
-include $(BUILD_JAVA_LIBRARY)
+# include $(BUILD_JAVA_LIBRARY)
 endif

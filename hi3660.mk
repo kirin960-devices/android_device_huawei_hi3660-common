@@ -69,13 +69,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.build.version.sdk=$(PLATFORM_SDK_VERSION) \
     ro.cust.cdrom=/dev/null
 
-# Radio
-PRODUCT_PACKAGES += \
-    qti-telephony-common
-
-PRODUCT_BOOT_JARS += \
-    telephony-ext
-
 # Recovery
 PRODUCT_PACKAGES += \
     resize2fs_static
