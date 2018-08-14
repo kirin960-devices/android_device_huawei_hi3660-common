@@ -2929,6 +2929,7 @@ lib64/libwifi-system.so:lib64/vndk-26/libwifi-system.so
 lib64/libxml2.so:lib64/vndk-26/libxml2.so
 lib64/libyuv.so:lib64/vndk-26/libyuv.so
 lib64/libziparchive.so:lib64/vndk-26/libziparchive.so
+lib/hw/android.hidl.memory@1.0-impl.so:lib/vndk-sp-26/hw/android.hidl.memory@1.0-impl.so
 lib/vndk-sp/android.hardware.graphics.allocator@2.0.so:lib/vndk-sp-26/android.hardware.graphics.allocator@2.0.so
 lib/vndk-sp/android.hardware.graphics.common@1.0.so:lib/vndk-sp-26/android.hardware.graphics.common@1.0.so
 lib/vndk-sp/android.hardware.graphics.mapper@2.0.so:lib/vndk-sp-26/android.hardware.graphics.mapper@2.0.so
@@ -2956,6 +2957,7 @@ lib/vndk-sp/libRSDriver.so:lib/vndk-sp-26/libRSDriver.so
 lib/vndk-sp/libRS_internal.so:lib/vndk-sp-26/libRS_internal.so
 lib/vndk-sp/libunwind.so:lib/vndk-sp-26/libunwind.so
 lib/vndk-sp/libutils.so:lib/vndk-sp-26/libutils.so
+lib64/hw/android.hidl.memory@1.0-impl.so:lib64/vndk-sp-26/hw/android.hidl.memory@1.0-impl.so
 lib64/vndk-sp/android.hardware.graphics.allocator@2.0.so:lib64/vndk-sp-26/android.hardware.graphics.allocator@2.0.so
 lib64/vndk-sp/android.hardware.graphics.common@1.0.so:lib64/vndk-sp-26/android.hardware.graphics.common@1.0.so
 lib64/vndk-sp/android.hardware.graphics.mapper@2.0.so:lib64/vndk-sp-26/android.hardware.graphics.mapper@2.0.so
