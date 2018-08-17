@@ -26,9 +26,3 @@ service dpeservice-1.1 /system/bin/displayengineserver@1.1
     user graphics
     group graphics system sdcard_rw
     disabled
-
-on property:init.svc.displayengine-hal-1-0=*
-    start dpeservice-1.0
-
-on property:init.svc.displayengine-hal-1-1=*
-    start dpeservice-1.1
