@@ -123,15 +123,15 @@ Status getCurrentRoleHelper(std::string portName,
     if (type == PortRoleType::POWER_ROLE) {
         filename = "/sys/class/dual_role_usb/" +
             portName + "/power_role";
-        currentRole = static_cast<uint32_t>(PortPowerRole::NONE);
+        currentRole = static_cast<uint32_t>(PortPowerRole::SINK);
     } else if (type == PortRoleType::DATA_ROLE) {
         filename = "/sys/class/dual_role_usb/" +
             portName + "/data_role";
-        currentRole = static_cast<uint32_t> (PortDataRole::NONE);
+        currentRole = static_cast<uint32_t> (PortDataRole::DEVICE);
     } else if (type == PortRoleType::MODE) {
         filename = "/sys/class/dual_role_usb/" +
             portName + "/mode";
-        currentRole = static_cast<uint32_t> (PortMode::NONE);
+        currentRole = static_cast<uint32_t> (PortMode::UFP);
     }
 
     if (readFile(filename, roleName)) {
