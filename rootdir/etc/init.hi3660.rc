@@ -15,6 +15,9 @@ on property:sys.boot_completed=1
 on property:ro.lineage.device=*
     setprop qemu.hw.mainkeys 1
 
+on property:sys.usb.ffs.mtp.ready=0
+    setprop sys.usb.ffs.mtp.ready 1
+
 service dpeservice-1.0 /system/bin/displayengineserver@1.0
     class main
     user graphics
