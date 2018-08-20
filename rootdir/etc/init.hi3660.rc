@@ -12,9 +12,6 @@ on property:sys.boot_completed=1
     write /sys/class/hw_power/charger/direct_charger/iin_thermal 4500
     write /sys/class/hw_power/charger/charge_data/iin_thermal 2000
 
-on property:ro.lineage.device=*
-    setprop qemu.hw.mainkeys 1
-
 on property:sys.usb.ffs.mtp.ready=0
     setprop sys.usb.ffs.mtp.ready 1
 
