@@ -43,6 +43,9 @@ BOARD_HAVE_BLUETOOTH := true
 # Extended Filesystem Support
 TARGET_EXFAT_DRIVER := exfat
 
+# HW Composer
+TARGET_HAS_HWC_HUAWEI := true
+
 # Lineage hardware
 BOARD_HARDWARE_CLASS += \
     $(VENDOR_PATH)/lineagehw
