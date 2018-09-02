@@ -6,7 +6,7 @@
 /cust              ext4      /dev/block/bootdevice/by-name/cust              flags=display="Cust";backup=1
 /misc              emmc      /dev/block/bootdevice/by-name/misc              flags=display="Misc";backup=0
 /oeminfo           emmc      /dev/block/bootdevice/by-name/oeminfo           flags=display="OEMinfo";backup=1
-/data              f2fs      /dev/block/bootdevice/by-name/userdata
+/data              f2fs      /dev/block/bootdevice/by-name/userdata          length=-16384,fileencryption=aes-256-xts:aes-256-cts
 /system            ext4      /dev/block/bootdevice/by-name/system
 /system_image      emmc      /dev/block/bootdevice/by-name/system            flags=display="System Image";backup=1;flashimg=1
 /vendor            ext4      /dev/block/bootdevice/by-name/vendor
