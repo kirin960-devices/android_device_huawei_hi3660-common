@@ -47,8 +47,7 @@ TARGET_EXFAT_DRIVER := exfat
 TARGET_HAS_HWC_HUAWEI := true
 
 # Lineage hardware
-BOARD_HARDWARE_CLASS += \
-    $(VENDOR_PATH)/lineagehw
+JAVA_SOURCE_OVERLAYS := org.lineageos.hardware|$(VENDOR_PATH)/lineagehw|**/*.java
 
 # Partitions
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 4761583616 # 4541MB
