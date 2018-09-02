@@ -47,8 +47,7 @@ TARGET_EXFAT_DRIVER := exfat
 TARGET_HAS_HWC_HUAWEI := true
 
 # Lineage hardware
-BOARD_HARDWARE_CLASS += \
-    $(VENDOR_PATH)/lineagehw
+JAVA_SOURCE_OVERLAYS := org.lineageos.hardware|$(VENDOR_PATH)/lineagehw|**/*.java
 
 # Display
 TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS := 0x2080000U
