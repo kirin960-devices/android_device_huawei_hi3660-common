@@ -100,3 +100,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/vndk-compat/llndk.libraries.26.txt:system/etc/llndk.libraries.26.txt \
     $(LOCAL_PATH)/vndk-compat/vndksp.libraries.26.txt:system/etc/vndksp.libraries.26.txt \
     $(LOCAL_PATH)/vndk-compat/ld.config.27.txt:system/etc/ld.config.27.txt
+
+# TWRP
+ifeq ($(WITH_TWRP),true)
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config=manufacture,adb,mtp \
+    ro.sys.usb.storage.type=mtp,adb \
+    sys.usb.configfs=1 \
+    sys.usb.controller=ff100000.dwc3
+endif

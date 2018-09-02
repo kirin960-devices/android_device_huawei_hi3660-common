@@ -102,7 +102,10 @@ TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
 
 # Recovery
 BOARD_PROVIDES_BOOTLOADER_MESSAGE := true
+
+ifneq ($(WITH_TWRP),true)
 TARGET_RECOVERY_FSTAB := $(VENDOR_PATH)/rootdir/etc/fstab.hi3660
+endif
 
 # Release tools
 TARGET_RELEASETOOLS_EXTENSIONS := $(VENDOR_PATH)/releasetools
@@ -131,3 +134,8 @@ TARGET_USES_MKE2FS := true
 
 # VNDK
 BOARD_VNDK_VERSION := current
+
+# TWRP
+ifeq ($(WITH_TWRP),true)
+-include $(VENDOR_PATH)/twrp.mk
+endif
