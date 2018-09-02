@@ -1545,4 +1545,7 @@
 (typeattributeset thirdmodemnvmbkp_block_device_27_0 (thirdmodemnvmbkp_block_device))
 (expandtypeattribute (thirdmodemnvmbkp_block_device_27_0) true)
 (typeattribute thirdmodemnvmbkp_block_device_27_0)
+(typeattributeset check_root_prop_27_0 (check_root_prop))
+(expandtypeattribute (check_root_prop_27_0) true)
+(typeattribute check_root_prop_27_0)
 
