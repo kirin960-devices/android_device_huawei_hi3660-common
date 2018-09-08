@@ -18,6 +18,9 @@
 # Remount system as R/W
 mount -o rw,remount /system
 
+# Remount product as R/W
+mount -o rw,remount /product
+
 # Remove duplicated genfscon rules
 sed -i "/genfscon exfat/d" /system/etc/selinux/plat_sepolicy.cil
 sed -i "/genfscon fuseblk/d" /system/etc/selinux/plat_sepolicy.cil
@@ -29,6 +32,9 @@ sed -i "/user incidentd/d" /system/etc/init/incidentd.rc
 
 # Hack libsoftkeymasterdevice in releasetools
 sed -i 's/ro.build.version.release/ro.build.version.huawei1/g' /system/lib64/vndk-27/libsoftkeymasterdevice.so
+
+# Rename Camera Huawei, not needed in lineage/aosp rom
+mv /product/app/HwCamera2/HwCamera2.apk  /product/app/HwCamera2/HwCamera2.apk.bak
 
 # 8.0 vendor image specific hacks
 if [ "$(grep ro.build.version.release /vendor/build.prop)" = "ro.build.version.release=8.0.0" ]; then
