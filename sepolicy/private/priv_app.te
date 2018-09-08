@@ -1,0 +1,7 @@
+allow priv_app teecd_data_file:filesystem getattr;
+allow priv_app splash2_data_file:filesystem getattr;
+allow priv_app hisee_data_file:filesystem getattr;
+allow priv_app modem_fw_file:filesystem getattr;
+allow priv_app modem_nv_file:filesystem getattr;
+allow priv_app modem_log_file:filesystem getattr;
+allow priv_app modem_secure_file:filesystem getattr;

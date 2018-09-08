@@ -1,0 +1,1 @@
+allow nfc device:file read;

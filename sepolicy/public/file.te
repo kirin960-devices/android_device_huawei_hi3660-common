@@ -21,3 +21,7 @@ type teecd_data_file, core_data_file_type, data_file_type, file_type;
 type thirdmodem_block_device, dev_type;
 type thirdmodemnvm_block_device, dev_type;
 type thirdmodemnvmbkp_block_device, dev_type;
+type modem_fw_file, file_type, mlstrustedobject;
+type modem_nv_file, file_type, mlstrustedobject;
+type modem_log_file, file_type, mlstrustedobject;
+type modem_secure_file, file_type, mlstrustedobject;

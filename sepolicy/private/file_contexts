@@ -55,6 +55,12 @@
 /data/android_logs(/.*)?                u:object_r:logcat_data_file:s0
 /data/log/fingerprint(/.*)?             u:object_r:logcat_data_file:s0
 
+# Modem
+/modem_fw(/.*)?                         u:object_r:modem_fw_file:s0
+/modem_log(/.*)?                        u:object_r:modem_nv_file:s0
+/modem_nv(/.*)?                         u:object_r:modem_log_file:s0
+/modem_secure(/.*)?                     u:object_r:modem_secure_file:s0
+
 # pmom (?)
 /dev/pmom               u:object_r:pmom_device:s0
 
