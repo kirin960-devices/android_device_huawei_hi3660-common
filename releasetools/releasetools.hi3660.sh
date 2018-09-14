@@ -36,6 +36,11 @@ sed -i 's/ro.build.version.release/ro.build.version.huawei1/g' /system/lib64/vnd
 # Rename Camera Huawei, not needed in lineage/aosp rom
 mv /product/app/HwCamera2/HwCamera2.apk  /product/app/HwCamera2/HwCamera2.apk.bak
 
+# HAX: Use vendor context for wifi service
+chcon "u:object_r:hal_wifi_default_exec:s0" /system/bin/hw/android.hardware.wifi@1.0-service
+
+echo "/data/vendor/wifi/hostapd(/.*)?   u:object_r:hostapd_device_data_file:s0" >> /system/etc/selinux/plat_file_contexts
+
 # 8.0 vendor image specific hacks
 if [ "$(grep ro.build.version.release /vendor/build.prop)" = "ro.build.version.release=8.0.0" ]; then
     # Fix logd service definition

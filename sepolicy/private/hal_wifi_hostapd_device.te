@@ -1,0 +1,11 @@
+# hostapd or equivalent
+type hal_wifi_hostapd_device, coredomain, domain, data_between_core_and_vendor_violators, socket_between_core_and_vendor_violators;
+hal_server_domain(hal_wifi_hostapd_device, hal_wifi_hostapd)
+type hal_wifi_hostapd_device_exec, exec_type, file_type;
+init_daemon_domain(hal_wifi_hostapd_device)
+net_domain(hal_wifi_hostapd_device)
+# Allow hostapd to access it's data folder
+allow hal_wifi_hostapd_device hostapd_device_data_file:dir create_dir_perms;
+allow hal_wifi_hostapd_device hostapd_device_data_file:file create_file_perms;
+allow hal_wifi_hostapd_device hostapd_device_data_file:sock_file create_file_perms;
+

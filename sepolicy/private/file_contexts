@@ -69,3 +69,6 @@
 # USB HAL
 /system/bin/hw/android\.hardware\.usb@1\.0-service\.hi3660       u:object_r:hal_usb_hi3660_exec:s0
 
+# Wi-Fi
+/system/bin/hw/hostapd                                        u:object_r:hal_wifi_hostapd_device_exec:s0
+/system/bin/hw/hostapd_hisi                                   u:object_r:hal_wifi_hostapd_device_exec:s0

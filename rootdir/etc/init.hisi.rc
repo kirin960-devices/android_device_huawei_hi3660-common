@@ -1,0 +1,9 @@
+service hostapd /system/bin/hw/hostapd_hisi -ddd
+    interface android.hardware.wifi.hostapd@1.0::IHostapd default
+    class main
+    capabilities NET_ADMIN NET_RAW
+    user wifi
+    group wifi net_raw net_admin
+    disabled
+    oneshot
+
