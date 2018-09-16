@@ -14,8 +14,6 @@
 # limitations under the License.
 #
 
-include build/make/target/board/generic_arm64_a/BoardConfig.mk
-
 VENDOR_PATH := device/huawei/hi3660-common
 
 # Platform
@@ -31,6 +29,28 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a53
 
+# Android generic system image always create metadata partition
+BOARD_USES_METADATA_PARTITION := true
+
+# Audio
+USE_XML_AUDIO_POLICY_CONF := 1
+
+# Android Verified Boot (AVB):
+#   Builds a special vbmeta.img that disables AVB verification.
+#   Otherwise, AVB will prevent the device from booting the generic system.img.
+#   Also checks that BOARD_AVB_ENABLE is not set, to prevent adding verity
+#   metadata into system.img.
+ifeq ($(BOARD_AVB_ENABLE),true)
+$(error BOARD_AVB_ENABLE cannot be set for Treble GSI)
+endif
+BOARD_BUILD_DISABLED_VBMETAIMAGE := true
+
+# Bootloader, kernel and recovery are not part of generic AOSP image
+TARGET_NO_BOOTLOADER := true
+
+# Generic AOSP image does NOT support HWC1
+TARGET_USES_HWC2 := true
+
 # Kernel
 BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_NO_KERNEL := false
@@ -43,6 +63,9 @@ BOARD_HAVE_BLUETOOTH := true
 # Extended Filesystem Support
 TARGET_EXFAT_DRIVER := exfat
 
+# Generic AOSP image always requires separate vendor.img
+TARGET_COPY_OUT_VENDOR := vendor
+
 # HW Composer
 TARGET_HAS_HWC_HUAWEI := true
 
@@ -52,12 +75,16 @@ JAVA_SOURCE_OVERLAYS := org.lineageos.hardware|$(VENDOR_PATH)/lineagehw|**/*.jav
 # Display
 TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS := 0x2080000U
 
+# Enable 64-bits binder
+TARGET_USES_64_BIT_BINDER := true
+
 # Partitions
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3724541952 # 4541MB  3552MB for ASIA
 BOARD_CACHEIMAGE_PARTITION_SIZE := 126877696 # 121MB
 
 # Properties
 TARGET_SYSTEM_PROP := $(VENDOR_PATH)/system.prop
+BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
 # Radio
 TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
@@ -73,9 +100,23 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(VENDOR_PATH)/releasetools
 BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(VENDOR_PATH)/sepolicy/private
 BOARD_PLAT_PUBLIC_SEPOLICY_DIR += $(VENDOR_PATH)/sepolicy/public
 
+# Set emulator framebuffer display device buffer count to 3
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+
 # Shims
 TARGET_LD_SHIM_LIBS := \
     /system/lib64/libdisplayenginesvc_1_0.so|libshims_hwsmartdisplay_jni.so \
     /system/lib64/libdisplayenginesvc_1_1.so|libshims_hwsmartdisplay_jni.so \
     /system/lib64/libhwsmartdisplay_jni.so|libshims_hwsmartdisplay_jni.so \
     /vendor/bin/hw/vendor.huawei.hardware.hisupl@1.0-service|libshims_hisupl.so
+
+# system.img is always ext4 with sparse option
+# GSI also includes make_f2fs to support userdata parition in f2fs
+# for some devices
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
+TARGET_USES_MKE2FS := true
+
+# VNDK
+BOARD_VNDK_VERSION := current
