@@ -52,6 +52,7 @@ TARGET_NO_BOOTLOADER := true
 TARGET_USES_HWC2 := true
 
 # Kernel
+BOARD_CUSTOM_BUILD_MAKEFILE := $(VENDOR_PATH)/mkbootimg.mk
 BOARD_KERNEL_BASE := 0x00078000
 BOARD_KERNEL_CMDLINE := loglevel=4 initcall_debug=n page_tracker=on slub_min_objects=16 unmovable_isolate1=2:192M,3:224M,4:256M printktimer=0xfff0a000,0x534,0x538
 BOARD_KERNEL_IMAGE_NAME := Image.gz
