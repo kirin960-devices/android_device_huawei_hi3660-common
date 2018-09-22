@@ -16,7 +16,7 @@
 
 INTERNAL_MKBOOTIMG_VERSION_ARGS := \
     --os_version 8.0.0 \
-    --os_patch_level 2018-07-01
+    --os_patch_level 2018-08-01
 
 $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) \
 		$(recovery_ramdisk) \
