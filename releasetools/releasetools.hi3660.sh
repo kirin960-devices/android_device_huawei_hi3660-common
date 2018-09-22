@@ -150,4 +150,10 @@ if [ "$(grep ro.build.version.release /vendor/build.prop)" = "ro.build.version.r
     sed -i 's/intra-refresh-mode/intra-refresh-nope/' /system/lib/libstagefright.so
 fi
 
+
+# build version security patch specific hacks
+if [ "$(grep ro.build.version.security_patch /vendor/build.prop)" = "ro.build.version.security_patch=2018-07-01" ]; then
+    sed -i "s/2018-07-01/2018-08-01/" /vendor/build.prop
+fi
+
 exit 0
