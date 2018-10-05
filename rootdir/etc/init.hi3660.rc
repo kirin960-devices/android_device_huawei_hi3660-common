@@ -1,6 +1,5 @@
 on init
     mount none /system/bin/adbd /sbin/adbd bind
-    mount none /system/etc/media_codecs.xml /vendor/etc/media_codecs.xml bind
     mount none /system/etc/usb_audio_policy_configuration.xml /vendor/etc/usb_audio_policy_configuration.xml bind
     mount none /system/usr/keylayout/fingerprint.kl /vendor/usr/keylayout/fingerprint.kl bind
 
