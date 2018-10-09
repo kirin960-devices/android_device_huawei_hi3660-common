@@ -22,6 +22,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.UserHandle;
 import android.util.Log;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
@@ -32,7 +33,8 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
         if (DEBUG) Log.d(TAG, "Starting service");
-        context.startService(new Intent(context, SensorsDozeService.class));
+        context.startServiceAsUser(new Intent(context, SensorsDozeService.class),
+                new UserHandle(UserHandle.USER_CURRENT));
     }
 
     private void enableComponent(Context context, String component) {
