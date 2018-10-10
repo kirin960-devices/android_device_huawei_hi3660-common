@@ -22,7 +22,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
+import android.support.v7.preference.PreferenceManager;
 import android.os.UserHandle;
+import android.os.SystemProperties;
+import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
@@ -35,6 +40,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         if (DEBUG) Log.d(TAG, "Starting service");
         context.startServiceAsUser(new Intent(context, SensorsDozeService.class),
                 new UserHandle(UserHandle.USER_CURRENT));
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SystemProperties.set(DeviceSettings.FPNAV_ENABLED_PROP, sharedPrefs.getBoolean(DeviceSettings.KEY_FP_GESTURES, false) ? "1" : "0");
+        Utils.writeValue(DeviceSettings.HIGH_TOUCH_MODE, sharedPrefs.getBoolean(DeviceSettings.KEY_HIGH_TOUCH, false) ? "1" : "0");
     }
 
     private void enableComponent(Context context, String component) {

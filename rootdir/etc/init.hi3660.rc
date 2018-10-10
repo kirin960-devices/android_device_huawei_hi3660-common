@@ -31,5 +31,15 @@ on property:init.svc.displayengine-hal-1-0=*
 on property:init.svc.displayengine-hal-1-1=*
     start dpeservice-1.1
 
+on property:sys.fpnav.enabled=0
+    write /sys/devices/platform/fingerprint/nav 0
+    stop fps_hal_ext
+    start fps_hal_ext
+
+on property:sys.fpnav.enabled=1
+    write /sys/devices/platform/fingerprint/nav 1
+    stop fps_hal_ext
+    start fps_hal_ext
+
 on boot
     setprop wifi.direct.interface p2p-dev-wlan0

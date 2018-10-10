@@ -9,6 +9,9 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.INJECT_EVENTS" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <protected-broadcast android:name="com.android.systemui.doze.pulse" />
 
@@ -19,6 +22,7 @@
     <application
         android:allowBackup="true"
         android:label="@string/device_settings_app_name"
+        android:theme="@style/DeviceSettings"
         android:persistent="true">
 
         <receiver android:name="org.lineageos.settings.device.BootCompletedReceiver">
@@ -45,6 +49,38 @@
             <meta-data
                 android:name="com.android.settings.summary"
                 android:resource="@string/ambient_display_gestures_summary" />
+        </activity>
+
+        <activity
+            android:name="org.lineageos.settings.device.DeviceSettingsActivity"
+            android:exported="false"
+            android:label="@string/advanced_settings"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity-alias
+            android:name="org.lineageos.settings.device.DeviceSettings"
+            android:exported="true"
+            android:label="@string/advanced_settings"
+            android:targetActivity="DeviceSettingsActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity-alias>
+        <activity
+            android:name="org.lineageos.settings.device.GestureSettingsActivity"
+            android:exported="false"
+            android:label="@string/category_gestures_title"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
     </application>
