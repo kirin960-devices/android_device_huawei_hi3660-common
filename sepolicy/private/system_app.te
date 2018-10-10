@@ -1,0 +1,4 @@
+# Allow system_app to read event-log-tags
+allow system_app device:file r_file_perms;
+allow system_app dalvikcache_data_file:file {rw_file_perms setattr};
+allow system_app sysfs:file rw_file_perms;
