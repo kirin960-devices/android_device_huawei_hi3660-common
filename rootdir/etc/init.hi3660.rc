@@ -1,7 +1,6 @@
 on init
     mount none /system/bin/adbd /sbin/adbd bind
     mount none /system/etc/usb_audio_policy_configuration.xml /vendor/etc/usb_audio_policy_configuration.xml bind
-    mount none /system/usr/keylayout/fingerprint.kl /vendor/usr/keylayout/fingerprint.kl bind
 
 on post-fs-data
     mkdir /data/vendor_ce 0771 root root
