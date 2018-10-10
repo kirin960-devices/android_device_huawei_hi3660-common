@@ -255,42 +255,6 @@ public class KeyHandler implements DeviceKeyHandler {
 
     }
 
-    private int getSliderAction(int position) {
-        String value = Settings.System.getStringForUser(mContext.getContentResolver(),
-                    Settings.System.BUTTON_EXTRA_KEY_MAPPING,
-                    UserHandle.USER_CURRENT);
-        final String defaultValue = DeviceSettings.SLIDER_DEFAULT_VALUE;
-
-        if (value == null) {
-            value = defaultValue;
-        } else if (value.indexOf(",") == -1) {
-            value = defaultValue;
-        }
-        try {
-            String[] parts = value.split(",");
-            return Integer.valueOf(parts[position]);
-        } catch (Exception e) {
-        }
-        return 0;
-    }
-
-    private void doHandleSliderAction(int position) {
-        int action = getSliderAction(position);
-        if ( action == 0) {
-            mNoMan.setZenMode(Global.ZEN_MODE_OFF_ONLY, null, TAG);
-            mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_NORMAL);
-        } else if (action == 1) {
-            mNoMan.setZenMode(Global.ZEN_MODE_OFF_ONLY, null, TAG);
-            mAudioManager.setRingerModeInternal(AudioManager.RINGER_MODE_VIBRATE);
-        } else if (action == 2) {
-            mNoMan.setZenMode(Global.ZEN_MODE_IMPORTANT_INTERRUPTIONS, null, TAG);
-        } else if (action == 3) {
-            mNoMan.setZenMode(Global.ZEN_MODE_ALARMS, null, TAG);
-        } else if (action == 4) {
-            mNoMan.setZenMode(Global.ZEN_MODE_NO_INTERRUPTIONS, null, TAG);
-        }
-    }
-
     private Intent createIntent(String value) {
         ComponentName componentName = ComponentName.unflattenFromString(value);
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -302,18 +266,11 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private boolean launchSpecialActions(String value) {
-        if (value.equals(AppSelectListPreference.TORCH_ENTRY)) {
+        if (value.equals(AppSelectListPreference.TORCH_ENTRY))
             mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
             IStatusBarService service = getStatusBarService();
-            if (service != null) {
-                try {
-                    vibe();
-                } catch (RemoteException e) {
-                    // do nothing.
-                }
-            }
-            return true;
-        } else if (value.equals(AppSelectListPreference.MUSIC_PLAY_ENTRY)) {
+
+        if (value.equals(AppSelectListPreference.MUSIC_PLAY_ENTRY)) {
             mGestureWakeLock.acquire(GESTURE_WAKELOCK_DURATION);
             vibe();
             dispatchMediaKeyWithWakeLockToAudioService(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE);
