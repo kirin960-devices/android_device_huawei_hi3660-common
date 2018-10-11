@@ -55,7 +55,7 @@ import android.view.HapticFeedbackConstants;
 import android.view.WindowManagerGlobal;
 import com.android.server.policy.WindowManagerPolicy;
 
-import org.lineageos.settings.device.omni.DeviceKeyHandler;
+import com.android.internal.os.DeviceKeyHandler;
 import com.android.internal.util.ArrayUtils;
 import org.lineageos.settings.device.omni.OmniUtils;
 import com.android.internal.statusbar.IStatusBarService;
@@ -138,10 +138,9 @@ public class KeyHandler implements DeviceKeyHandler {
         }
     }
 
-    @Override
-    public boolean handleKeyEvent(KeyEvent event) {
+    public KeyEvent handleKeyEvent(KeyEvent event) {
         if (event.getAction() != KeyEvent.ACTION_UP || event.getScanCode() == FP_UP || event.getScanCode() == FP_DOWN) {
-            return false;
+            return event;
         }
         isFpgesture = false;
 
@@ -158,10 +157,9 @@ public class KeyHandler implements DeviceKeyHandler {
                     mContext.startActivity(intent);
             }
         }
-        return isFpgesture;
+        return isFpgesture ? null : event;
     }
 
-    @Override
     public boolean canHandleKeyEvent(KeyEvent event) {
         if (event.getScanCode() == FP_UP || event.getScanCode() == FP_DOWN){
             return false;
@@ -169,7 +167,6 @@ public class KeyHandler implements DeviceKeyHandler {
         return ArrayUtils.contains(sSupportedGestures, event.getScanCode());
     }
 
-    @Override
     public boolean isDisabledKeyEvent(KeyEvent event) {
 	if (event.getScanCode() == FP_UP || event.getScanCode() == FP_DOWN) {
 	    return true;
@@ -177,7 +174,6 @@ public class KeyHandler implements DeviceKeyHandler {
         return false;
     }
 
-    @Override
     public boolean isCameraLaunchEvent(KeyEvent event) {
         if (event.getAction() != KeyEvent.ACTION_UP || event.getScanCode() == FP_UP || event.getScanCode() == FP_DOWN) {
             return false;
@@ -190,12 +186,10 @@ public class KeyHandler implements DeviceKeyHandler {
         return false;
     }
 
-    @Override
     public boolean isWakeEvent(KeyEvent event){
         return false;
     }
 
-    @Override
     public Intent isActivityLaunchEvent(KeyEvent event) {
         if (event.getAction() != KeyEvent.ACTION_UP || event.getScanCode() == FP_UP || event.getScanCode() == FP_DOWN) {
             return null;
