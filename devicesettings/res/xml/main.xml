@@ -28,7 +28,7 @@
         android:dependency="fp_gestures_key"
         android:summary="@string/category_gestures_summary"
         android:persistent="false" >
-        <intent android:action="android.intent.action.MAIN"
+        <intent android:action="com.android.settings.action.IA_SETTINGS"
                 android:targetPackage="org.lineageos.settings.device"
                 android:targetClass="org.lineageos.settings.device.GestureSettingsActivity" />
     </Preference>

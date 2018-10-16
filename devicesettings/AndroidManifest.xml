@@ -22,8 +22,8 @@
     <application
         android:allowBackup="true"
         android:label="@string/device_settings_app_name"
-        android:theme="@style/DeviceSettings"
-        android:persistent="true">
+        android:persistent="true"
+        android:theme="@style/DeviceSettings">
 
         <receiver android:name="org.lineageos.settings.device.BootCompletedReceiver">
             <intent-filter>
@@ -54,12 +54,18 @@
         <activity
             android:name="org.lineageos.settings.device.DeviceSettingsActivity"
             android:exported="false"
-            android:label="@string/advanced_settings"
-            android:launchMode="singleTask" >
+            android:label="@string/category_gestures_title"
+            android:launchMode="singleTask"
+            android:theme="@style/DeviceSettings">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
             </intent-filter>
+            <meta-data
+                android:name="com.android.settings.category"
+                android:value="com.android.settings.category.ia.display" />
+            <meta-data
+                android:name="com.android.settings.summary"
+                android:resource="@string/touchscreen_gesture_settings_summary" />
         </activity>
 
         <activity-alias
@@ -68,17 +74,16 @@
             android:label="@string/advanced_settings"
             android:targetActivity="DeviceSettingsActivity" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity-alias>
+
         <activity
             android:name="org.lineageos.settings.device.GestureSettingsActivity"
-            android:exported="false"
-            android:label="@string/category_gestures_title"
-            android:launchMode="singleTask" >
+            android:label="@string/category_gestures_title">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.android.settings.action.IA_SETTINGS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

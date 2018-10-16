@@ -22,9 +22,9 @@
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:gravity="center_vertical"
-    android:paddingStart="6dp"
-    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-    android:background="?android:attr/selectableItemBackground">
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:background="@drawable/switchbar_background">
 
     <ImageView
         android:id="@+id/icon"
@@ -44,6 +44,6 @@
         android:focusable="false"
         android:singleLine="true"
         android:textAlignment="viewStart"
-        android:textAppearance="?android:attr/textAppearanceListItem" />
+        android:textAppearance="@android:style/TextAppearance.Material.Title" />
 
 </LinearLayout>

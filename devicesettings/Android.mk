@@ -14,15 +14,15 @@ LOCAL_USE_AAPT2 := true
 
 LOCAL_STATIC_ANDROID_LIBRARIES := \
     android-support-v14-preference \
+    android-support-v13 \
     android-support-v7-appcompat \
     android-support-v7-preference \
-    android-support-v7-recyclerview
+    android-support-v7-recyclerview \
+    android-support-v4
 
 LOCAL_RESOURCE_DIR := \
     $(LOCAL_PATH)/res \
     $(TOP)/packages/resources/devicesettings/res
-
-LOCAL_STATIC_JAVA_LIBRARIES := services.core.unboosted
 
 LOCAL_PROGUARD_ENABLED := disabled
 
