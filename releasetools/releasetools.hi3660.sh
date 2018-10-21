@@ -156,4 +156,12 @@ if [ "$(grep ro.build.version.security_patch /vendor/build.prop)" = "ro.build.ve
     sed -i "s/2018-07-01/2018-08-01/" /vendor/build.prop
 fi
 
+if [ "$(grep ro.build.version.security_patch /vendor/build.prop)" = "ro.build.version.security_patch=2018-09-01" ]; then
+    sed -i "s/2018-09-01/2018-08-01/" /vendor/build.prop
+fi
+
+if [ "$(grep ro.build.version.security_patch /vendor/build.prop)" = "ro.build.version.security_patch=2018-10-01" ]; then
+    sed -i "s/2018-10-01/2018-08-01/" /vendor/build.prop
+fi
+
 exit 0
