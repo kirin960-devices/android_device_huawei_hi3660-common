@@ -70,8 +70,8 @@ public class KeyHandler implements DeviceKeyHandler {
 
     private static final String DOZE_INTENT = "com.android.systemui.doze.pulse";
 
-    private static final int FP_GESTURE_SWIPE_LEFT = 106;
-    private static final int FP_GESTURE_SWIPE_RIGHT = 105;
+    private static final int FP_GESTURE_SWIPE_LEFT = 105;
+    private static final int FP_GESTURE_SWIPE_RIGHT = 106;
     private static final int FP_GESTURE_LONG_PRESS = 28;
 
     private static final int FP_GESTURE_TAP = 174;
