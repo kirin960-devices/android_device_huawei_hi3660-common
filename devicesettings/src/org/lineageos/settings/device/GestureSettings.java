@@ -83,7 +83,7 @@ public class GestureSettings extends PreferenceFragment implements
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.gesture_settings, rootKey);
-        
+
             mFPRightSwipeApp = (AppSelectListPreference) findPreference(FP_GESTURE_SWIPE_RIGHT_APP);
             mFPRightSwipeApp.setEnabled(true);
             String value = Settings.System.getString(getContext().getContentResolver(), DEVICE_GESTURE_MAPPING_12);
@@ -101,6 +101,12 @@ public class GestureSettings extends PreferenceFragment implements
             value = Settings.System.getString(getContext().getContentResolver(), DEVICE_GESTURE_MAPPING_14);
             mFPLongPressApp.setValue(value);
             mFPLongPressApp.setOnPreferenceChangeListener(this);
+
+            mFPDownSwipeApp = (AppSelectListPreference) findPreference(FP_GESTURE_SWIPE_DOWN_APP);
+            mFPDownSwipeApp.setEnabled(true);
+            value = Settings.System.getString(getContext().getContentResolver(), DEVICE_GESTURE_MAPPING_11);
+            mFPDownSwipeApp.setValue(value);
+            mFPDownSwipeApp.setOnPreferenceChangeListener(this);
             
             mFPTapApp = (AppSelectListPreference) findPreference(FP_GESTURE_TAP_APP);
             mFPTapApp.setEnabled(true);
@@ -131,6 +137,9 @@ public class GestureSettings extends PreferenceFragment implements
         } else if (preference == mFPLongPressApp) {
             String value = (String) newValue;
             Settings.System.putString(getContext().getContentResolver(), DEVICE_GESTURE_MAPPING_14, value);
+        } else if (preference == mFPDownSwipeApp) {
+            String value = (String) newValue;
+            Settings.System.putString(getContext().getContentResolver(), DEVICE_GESTURE_MAPPING_11, value);
         } else if (preference == mFPTapApp) {
             String value = (String) newValue;
             Settings.System.putString(getContext().getContentResolver(), DEVICE_GESTURE_MAPPING_8, value);

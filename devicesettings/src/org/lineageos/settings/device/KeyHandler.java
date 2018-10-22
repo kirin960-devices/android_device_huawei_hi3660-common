@@ -70,6 +70,7 @@ public class KeyHandler implements DeviceKeyHandler {
 
     private static final String DOZE_INTENT = "com.android.systemui.doze.pulse";
 
+    private static final int FP_GESTURE_SWIPE_DOWN_APP = 108;
     private static final int FP_GESTURE_SWIPE_LEFT = 105;
     private static final int FP_GESTURE_SWIPE_RIGHT = 106;
     private static final int FP_GESTURE_LONG_PRESS = 28;
@@ -80,6 +81,7 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final int FP_UP = 113;
 
     private static final int[] sSupportedGestures = new int[]{
+        FP_GESTURE_SWIPE_DOWN_APP,
         FP_GESTURE_SWIPE_LEFT,
         FP_GESTURE_SWIPE_RIGHT,
         FP_GESTURE_LONG_PRESS,
@@ -312,6 +314,9 @@ public class KeyHandler implements DeviceKeyHandler {
             case FP_GESTURE_LONG_PRESS:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_14, UserHandle.USER_CURRENT);
+            case FP_GESTURE_SWIPE_DOWN_APP:
+                return Settings.System.getStringForUser(mContext.getContentResolver(),
+                    GestureSettings.DEVICE_GESTURE_MAPPING_11, UserHandle.USER_CURRENT);
             case FP_GESTURE_TAP:
                 return Settings.System.getStringForUser(mContext.getContentResolver(),
                     GestureSettings.DEVICE_GESTURE_MAPPING_8, UserHandle.USER_CURRENT);
