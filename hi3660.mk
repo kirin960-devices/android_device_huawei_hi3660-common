@@ -89,6 +89,15 @@ PRODUCT_PACKAGES += \
     libshims_hisupl \
     libshims_hwsmartdisplay_jni
 
+# TWRP
+ifeq ($(WITH_TWRP),true)
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config=manufacture,adb,mtp \
+    ro.sys.usb.storage.type=mtp,adb \
+    sys.usb.configfs=1 \
+    sys.usb.controller=ff100000.dwc3
+endif
+
 # USB
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service.hi3660

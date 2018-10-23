@@ -1,0 +1,49 @@
+import /init.usb.rc
+import /init.usb.configfs.rc
+
+on init
+    mkdir /config 0500 root root
+    mkdir /splash2
+
+ # Mount staging areas for devices managed by vold
+    # See storage config details at http://source.android.com/tech/storage/
+    mount tmpfs tmpfs /mnt mode=0755,uid=0,gid=1000
+
+    mount configfs none /config
+    chmod 0775 /config/sdcardfs
+    chown system package_info /config/sdcardfs
+
+on fs
+    start fixlinks
+
+service fixlinks /sbin/fixlinks.sh
+    oneshot
+    disabled
+    seclabel u:r:recovery:s0
+
+    restorecon /splash2
+    chmod 775 /splash2
+    chown root system /splash2
+
+    mkdir /splash2/log 0775 system log
+    symlink /splash2/fac_log /data/log/fac_log
+    symlink /splash2 /log
+
+on fs && property:sys.usb.configfs=0
+    write /sys/class/android_usb/android0/f_ffs/aliases adb
+#   mkdir /dev/usb-ffs 0770 shell shell
+#   mkdir /dev/usb-ffs/adb 0770 shell shell
+#   mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 18D1
+    write /sys/class/android_usb/android0/idProduct D001
+#   write /sys/class/android_usb/android0/f_ffs/aliases adb
+    write /sys/class/android_usb/android0/functions adb
+    write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
+    write /sys/class/android_usb/android0/iProduct ${ro.product.model}
+    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
+
+on boot
+    chown system system /sys/devices/platform/ff200000.hisi_usb/plugusb
+    chmod 0660 /sys/devices/platform/ff200000.hisi_usb/plugusb

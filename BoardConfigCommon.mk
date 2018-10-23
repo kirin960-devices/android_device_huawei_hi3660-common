@@ -48,6 +48,11 @@ TARGET_NO_BOOTLOADER := true
 TARGET_USES_HWC2 := true
 
 # Kernel
+ifeq ($(WITH_TWRP),true)
+BOARD_KERNEL_IMAGE_NAME := Image
+TARGET_NO_KERNEL := false
+TARGET_PREBUILT_KERNEL := /dev/null
+else
 BOARD_CUSTOM_BOOTIMG_MK := $(VENDOR_PATH)/mkbootimg.mk
 BOARD_BOOTIMAGE_WITHOUT_RAMDISK := true
 BOARD_KERNEL_BASE := 0x00078000
@@ -59,6 +64,7 @@ TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CONFIG := merge_hi3660_defconfig
 TARGET_KERNEL_SOURCE := kernel/huawei/hi3660
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
+endif
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(VENDOR_PATH)/bluetooth
@@ -99,7 +105,10 @@ TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
 
 # Recovery
 BOARD_PROVIDES_BOOTLOADER_MESSAGE := true
+
+ifneq ($(WITH_TWRP),true)
 TARGET_RECOVERY_FSTAB := $(VENDOR_PATH)/rootdir/etc/fstab.hi3660
+endif
 
 # Release tools
 TARGET_RELEASETOOLS_EXTENSIONS := $(VENDOR_PATH)/releasetools
@@ -117,6 +126,11 @@ TARGET_LD_SHIM_LIBS := \
     /system/lib64/libdisplayenginesvc_1_1.so|libshims_hwsmartdisplay_jni.so \
     /system/lib64/libhwsmartdisplay_jni.so|libshims_hwsmartdisplay_jni.so \
     /vendor/bin/hw/vendor.huawei.hardware.hisupl@1.0-service|libshims_hisupl.so
+
+# TWRP
+ifeq ($(WITH_TWRP),true)
+-include $(VENDOR_PATH)/twrp.mk
+endif
 
 # Don't dex preopt apps to avoid I/O congestion due to paging larger sized
 # pre-compiled .odex files as opposed to background generated interpret-only
