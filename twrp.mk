@@ -43,6 +43,7 @@ TW_DEFAULT_BRIGHTNESS := "2048"
 TW_CUSTOM_BATTERY_PATH := /sys/class/power_supply/Battery
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/config/usb_gadget/g1/functions/mass_storage.gs6/lun.0/file"
 TW_USE_TOOLBOX := true
+TW_USE_NEW_MINADBD := true
 
 # Device crashes if /sbin/modprobe is present so this is needed:
 BOARD_CUSTOM_BOOTIMG_MK := $(VENDOR_PATH)/custombootimg.mk
