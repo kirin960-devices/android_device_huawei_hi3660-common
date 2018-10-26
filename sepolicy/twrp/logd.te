@@ -1,0 +1,2 @@
+allow logd rootfs:file { entrypoint execute getattr open read };
+allow logd logd:capability { sys_resource };

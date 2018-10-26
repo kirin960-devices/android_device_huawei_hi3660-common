@@ -51,3 +51,6 @@ BOARD_CUSTOM_BOOTIMG_MK := $(VENDOR_PATH)/custombootimg.mk
 # Debug flags
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
+
+# SELinux
+include $(VENDOR_PATH)/sepolicy/twrp_sepolicy.mk

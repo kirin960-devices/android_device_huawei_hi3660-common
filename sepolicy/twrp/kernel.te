@@ -1,0 +1,12 @@
+allow kernel tmpfs:dir search;
+allow kernel device:dir { add_name write };
+allow kernel kernel:capability mknod;
+allow kernel block_device:dir search;
+allow kernel block_device:blk_file r_file_perms;
+allow kernel device:chr_file { create open read setattr write };
+allow kernel sysfs:file r_file_perms;
+allow kernel sysfs_devices_system_cpu:file rw_file_perms;
+allow kernel exception_device:chr_file { open write };
+allow kernel jank_device:chr_file { open write };
+allow kernel dubai_log_device:chr_file { open write };
+allow kernel recovery:fd use;

@@ -1,0 +1,6 @@
+allow vendor_init selinuxfs:file write;
+allow vendor_init proc_max_map_count:file write;
+allow vendor_init rootfs:dir { add_name create rw_file_perms setattr };
+allow vendor_init kernel:security setcheckreqprot;
+allow vendor_init pm_prop:property_service set;
+allow vendor_init system_data_file:dir { create setattr };
