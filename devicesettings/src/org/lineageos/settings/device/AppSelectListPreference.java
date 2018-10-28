@@ -73,8 +73,9 @@ public class AppSelectListPreference extends CustomDialogPreference {
     private CharSequence mTitle;
     private String mValue;
     private PackageManager mPm;
+    private List<PackageItem> mInstalledPackages = new LinkedList<PackageItem>();
 
-    public class PackageItem implements Comparable<PackageItem> {
+    public static class PackageItem implements Comparable<PackageItem> {
         public final CharSequence mTitle;
         public final int mAppIconResourceId;
         public final ComponentName mComponentName;
@@ -113,15 +114,99 @@ public class AppSelectListPreference extends CustomDialogPreference {
         }
     }
 
-    public class AppSelectListAdapter extends BaseAdapter implements Runnable {
-        private LayoutInflater mInflater;
-        private List<PackageItem> mInstalledPackages = new LinkedList<PackageItem>();
+    public class AppSelectListAdapter extends BaseAdapter {
+        private LayoutInflater mInflater;                
 
-        private final Handler mHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                // now add the special actions on top
-                PackageItem cameraItem = new PackageItem(getContext().getResources().getString(R.string.camera_entry),
+        public AppSelectListAdapter(Context context) {
+            mInflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public int getCount() {
+            return mInstalledPackages.size();
+        }
+
+        @Override
+        public PackageItem getItem(int position) {
+            return mInstalledPackages.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return mInstalledPackages.get(position).hashCode();
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView != null) {
+                holder = (ViewHolder) convertView.getTag();
+            } else {
+                convertView = mInflater.inflate(R.layout.applist_preference_icon, null, false);
+                holder = new ViewHolder();
+                convertView.setTag(holder);
+                holder.title = (TextView) convertView.findViewById(R.id.title);
+                holder.icon = (ImageView) convertView.findViewById(R.id.icon);
+            }
+
+            PackageItem applicationInfo = getItem(position);
+            holder.title.setText(applicationInfo.mTitle);
+            if (applicationInfo.mAppIconResourceId != 0) {
+                holder.icon.setImageResource(applicationInfo.mAppIconResourceId);
+            } else {
+                Drawable d = resolveAppIcon(applicationInfo);
+                holder.icon.setImageDrawable(d);
+            }
+            return convertView;
+        }
+
+        private PackageItem resolveApplication(ComponentName componentName) {
+            for (PackageItem item : mInstalledPackages) {
+                if (item.mComponentName != null && item.mComponentName.equals(componentName)) {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        private class ViewHolder {
+            TextView title;
+            TextView summary;
+            ImageView icon;
+        }
+    }
+
+    public AppSelectListPreference(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public AppSelectListPreference(Context context, int color) {
+        super(context, null);
+        init();
+    }
+
+    public void setPackageList(List<PackageItem> installedPackages) {
+        mInstalledPackages.clear();
+        mInstalledPackages.addAll(installedPackages);
+        addSpecialApps();
+        mAdapter.notifyDataSetChanged();
+        updatePreferenceViews();
+    }
+
+    private void init() {
+        mPm = getContext().getPackageManager();
+        setDialogLayoutResource(R.layout.preference_dialog_applist);
+        setLayoutResource(R.layout.preference_app_select);
+        setNegativeButtonText(android.R.string.cancel);
+        setPositiveButtonText(null);
+        setDialogTitle(R.string.choose_app);
+        setDialogIcon(null);
+        mAdapter = new AppSelectListAdapter(getContext());
+    }
+
+    private void addSpecialApps() {
+        PackageItem cameraItem = new PackageItem(getContext().getResources().getString(R.string.camera_entry),
                         R.drawable.ic_camera, CAMERA_ENTRY);
                 mInstalledPackages.add(0, cameraItem);
 
@@ -184,121 +269,7 @@ public class AppSelectListPreference extends CustomDialogPreference {
                 PackageItem disabledItem = new PackageItem(getContext().getResources().getString(R.string.disabled_entry),
                         R.drawable.ic_disabled, DISABLED_ENTRY);
                 mInstalledPackages.add(0, disabledItem);
-
-                notifyDataSetChanged();
-                updatePreferenceViews();
-            }
-        };
-
-        public AppSelectListAdapter(Context context) {
-            mInflater = LayoutInflater.from(context);
-            reloadList();
         }
-
-        @Override
-        public int getCount() {
-            return mInstalledPackages.size();
-        }
-
-        @Override
-        public PackageItem getItem(int position) {
-            return mInstalledPackages.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return mInstalledPackages.get(position).hashCode();
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-            if (convertView != null) {
-                holder = (ViewHolder) convertView.getTag();
-            } else {
-                convertView = mInflater.inflate(R.layout.applist_preference_icon, null, false);
-                holder = new ViewHolder();
-                convertView.setTag(holder);
-                holder.title = (TextView) convertView.findViewById(R.id.title);
-                holder.icon = (ImageView) convertView.findViewById(R.id.icon);
-            }
-
-            PackageItem applicationInfo = getItem(position);
-            holder.title.setText(applicationInfo.mTitle);
-            if (applicationInfo.mAppIconResourceId != 0) {
-                holder.icon.setImageResource(applicationInfo.mAppIconResourceId);
-            } else {
-                Drawable d = resolveAppIcon(applicationInfo);
-                holder.icon.setImageDrawable(d);
-            }
-            return convertView;
-        }
-
-        private void reloadList() {
-            mInstalledPackages.clear();
-            new Thread(this).start();
-        }
-
-        @Override
-        public void run() {
-            final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
-            mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-            List<ResolveInfo> installedAppsInfo = mPm.queryIntentActivities(mainIntent, 0);
-
-            for (ResolveInfo info : installedAppsInfo) {
-                ActivityInfo activity = info.activityInfo;
-                ApplicationInfo appInfo = activity.applicationInfo;
-                ComponentName componentName = new ComponentName(appInfo.packageName, activity.name);
-                CharSequence label = null;
-                try {
-                    label = activity.loadLabel(mPm);
-                } catch (Exception e) {
-                }
-                if (label != null) {
-                    final PackageItem item = new PackageItem(activity.loadLabel(mPm), 0, componentName);
-                    mInstalledPackages.add(item);
-                }
-            }
-            Collections.sort(mInstalledPackages);
-            mHandler.obtainMessage(0).sendToTarget();
-        }
-
-        private PackageItem resolveApplication(ComponentName componentName) {
-            for (PackageItem item : mInstalledPackages) {
-                if (item.mComponentName != null && item.mComponentName.equals(componentName)) {
-                    return item;
-                }
-            }
-            return null;
-        }
-
-        private class ViewHolder {
-            TextView title;
-            TextView summary;
-            ImageView icon;
-        }
-    }
-
-    public AppSelectListPreference(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }
-
-    public AppSelectListPreference(Context context, int color) {
-        super(context, null);
-        init();
-    }
-
-    private void init() {
-        mPm = getContext().getPackageManager();
-        setDialogLayoutResource(R.layout.preference_dialog_applist);
-        setLayoutResource(R.layout.preference_app_select);
-        setNegativeButtonText(android.R.string.cancel);
-        setPositiveButtonText(null);
-        setDialogTitle(R.string.choose_app);
-        setDialogIcon(null);
-        mAdapter = new AppSelectListAdapter(getContext());
-    }
 
     @Override
     protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
