@@ -33,6 +33,9 @@ sed -i "/user incidentd/d" /system/etc/init/incidentd.rc
 # Hack libsoftkeymasterdevice in releasetools
 sed -i 's/ro.build.version.release/ro.build.version.huawei1/g' /system/lib64/vndk-27/libsoftkeymasterdevice.so
 
+# Hack build.prop for all Emui 8.0.0 security_patch
+sed -i 's/ro.build.version.security_patch/ro.build.version.security_patch/g' /vendor/build.prop
+
 # Rename Camera Huawei, not needed in lineage/aosp rom
 mv /product/app/HwCamera2/HwCamera2.apk  /product/app/HwCamera2/HwCamera2.apk.bak
 
@@ -149,24 +152,6 @@ if [ "$(grep ro.build.version.release /vendor/build.prop)" = "ro.build.version.r
     # Disable parsing intra-refresh-mode parameter in libstagefright
     sed -i 's/intra-refresh-mode/intra-refresh-nope/' /system/lib64/libstagefright.so
     sed -i 's/intra-refresh-mode/intra-refresh-nope/' /system/lib/libstagefright.so
-fi
-
-
-# build version security patch specific hacks
-if [ "$(grep ro.build.version.security_patch /vendor/build.prop)" = "ro.build.version.security_patch=2018-06-01" ]; then
-    sed -i "s/2018-06-01/2018-08-01/" /vendor/build.prop
-fi
-
-if [ "$(grep ro.build.version.security_patch /vendor/build.prop)" = "ro.build.version.security_patch=2018-07-01" ]; then
-    sed -i "s/2018-07-01/2018-08-01/" /vendor/build.prop
-fi
-
-if [ "$(grep ro.build.version.security_patch /vendor/build.prop)" = "ro.build.version.security_patch=2018-09-01" ]; then
-    sed -i "s/2018-09-01/2018-08-01/" /vendor/build.prop
-fi
-
-if [ "$(grep ro.build.version.security_patch /vendor/build.prop)" = "ro.build.version.security_patch=2018-10-01" ]; then
-    sed -i "s/2018-10-01/2018-08-01/" /vendor/build.prop
 fi
 
 exit 0
