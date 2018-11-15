@@ -1,3 +1,4 @@
 typeattribute radio system_executes_vendor_violators;
 allow radio system_data_file:lnk_file r_file_perms;
 allow radio vendor_file:file rx_file_perms;
+allow radio device:file r_file_perms;

@@ -1,0 +1,1 @@
+allow vold_prepare_subdirs hi110x_daemon_exec:file { getattr };

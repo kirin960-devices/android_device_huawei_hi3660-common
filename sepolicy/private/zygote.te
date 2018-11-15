@@ -1,0 +1,2 @@
+allow zygote device:file r_file_perms;
+allow zygote hi110x_daemon_exec:file getattr;

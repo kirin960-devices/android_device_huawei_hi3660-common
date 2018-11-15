@@ -1,8 +1,10 @@
 type bfmr_device, dev_type;
 type cust_data_file, coredomain_socket, core_data_file_type, data_file_type, file_type;
+type cust_block_device, dev_type;
 type dmd_device, dev_type;
 type dubai_log_device, dev_type, mlstrustedobject;
 type exception_device, dev_type, mlstrustedobject;
+type hi110x_daemon_exec, exec_type, vendor_file_type, file_type;
 type hisee_blkdev, dev_type;
 type hisee_data_file, data_file_type, file_type;
 type hostapd_device_data_file, file_type, data_file_type;

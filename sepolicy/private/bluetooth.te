@@ -1,0 +1,1 @@
+allow bluetooth device:file r_file_perms;

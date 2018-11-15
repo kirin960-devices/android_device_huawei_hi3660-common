@@ -1,0 +1,1 @@
+allow tzdatacheck hi110x_daemon_exec:file getattr;

@@ -1,1 +1,4 @@
 allow fsck hisee_blkdev:blk_file rw_file_perms;
+allow fsck hi110x_daemon_exec:file getattr;
+allow fsck block_device:blk_file rw_file_perms;
+allow fsck make_ext4fs_blkdev:blk_file rw_file_perms;
